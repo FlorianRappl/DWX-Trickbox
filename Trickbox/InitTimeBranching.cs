@@ -2,12 +2,18 @@
 {
     using System;
 
+    /// <summary>
+    /// Some concepts from FP: 
+    /// * init-time branching and 
+    /// * self-defining functions.
+    /// </summary>
     class InitTimeBranching
     {
         readonly Action<String> log;
 
         public InitTimeBranching(bool outputToConsole)
         {
+            // Boolean evaluation cached to the consequence directly
             if (outputToConsole)
                 log = Console.WriteLine;
             else 
@@ -26,9 +32,11 @@
             var infinity = 1;// or much (!) larger
             var action = default(Action);
 
+            // Reference to method, which ...
             action = () =>
             {
                 log("Initial call; setting up stuff ...");
+                // redefines itself after the first call.
                 action = () => { };
             };
 

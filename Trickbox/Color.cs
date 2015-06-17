@@ -3,19 +3,27 @@
     using System;
     using System.Runtime.InteropServices;
 
+    /// <summary>
+    /// Unions are possible, however, only in structs and only if we do not
+    /// use any reference-type inside that struct.
+    /// </summary>
     [StructLayout(LayoutKind.Explicit, Pack = 1, CharSet = CharSet.Unicode)]
     public struct Color : IEquatable<Color>, IComparable<Color>
     {
         #region Fields
 
+        // 1st byte
         [FieldOffset(0)]
         readonly Byte alpha;
+        // 2nd byte ...
         [FieldOffset(1)]
         readonly Byte red;
         [FieldOffset(2)]
         readonly Byte green;
+        // 4th and last byte ...
         [FieldOffset(3)]
         readonly Byte blue;
+        // combining 1st to 4th byte -- one (32-bit) integer
         [FieldOffset(0)]
         readonly Int32 hashcode;
 
