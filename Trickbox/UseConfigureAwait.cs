@@ -10,6 +10,7 @@
         {
             using (var client = new HttpClient())
             {
+                // If in doubt (no GUI application; no sync. context) supply .ConfigureAwait(false)
                 var response = await client.GetStringAsync(uri).ConfigureAwait(false);
                 return response;
             }
