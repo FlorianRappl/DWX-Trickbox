@@ -22,23 +22,64 @@ The following provides an overview over all tricks and their sample class(es), i
 4. **partial methods** (see `PartialClass`, two files)
 5. **params indexer** (see `VariadicIndexers`)
 6. **debugger attributes** (see `DebAttr`)
-7. **copying memory fast** (see information below)
+7. **copying memory fast** (see remark below)
 8. **unions** (see `Color`)
 9. **expose local state to friends** (see `Friends`)
-10. **abuse default** (see information below)
+10. **abuse default** (see remark below)
 11. **create a stringbuilder pool** (see `StringBuilderPool`)
 12. **init time branching** (see `InitTimeBranching`)
 13. **configure await (probably)** (see `UseConfigureAwait`)
 14. **prevent boxing** (see `Boxing`)
-15. **remove LINQ** (see information below)
-16. **add LINQ** (see information below)
+15. **remove LINQ** (see remark below)
+16. **add LINQ** (see remark below)
 17. **consider aliasing** (see `Aliasing`)
 18. **operational enums** (see `OperationalEnums`)
 19. **variadic arguments** (see `VarArgs`)
-20. **optional invocation** (see information below)
+20. **optional invocation** (see remark below)
 21. **string interpolation** (see `Interpolate`)
-22. **use the tpl (wisely)** (see information below)
+22. **use the tpl (wisely)** (see remark below)
 23. **don't use plinq (probably)** (see `PLinq`)
 24. **await events** (see `AwaitEvents` and the instructions below)
 25. **use nameof** (see `UsingNameof`)
 
+## Instructions
+
+Some instructions on how to use special parts of the code.
+
+### Readonly vs Constants
+
+The huge difference is a that a `const` is constant by definition and therefore completely resolved during compile-time. This is basically a match and replace mechanism. `static readonly` fields on the other site, are just referenced. The compiler will insert the load and store instructions, thus not copying the *value* behind the field. As a consequence constants cannot change without re-compilation, however, variables that reference fields, which are `static readonly`, can.
+
+The code contains another library called `Trickbox.External`. This is an external library that only contains a single class, which has two `public` members: A constant and a `static readonly` field. One could try referencing the assembly and compiling code that uses both members.
+
+### Await Events
+
+A GUI that illustrates the concept of "awaiting events". The basic idea is to use the state machinery given by the Async runtime, instead of creating our own state machine.
+
+## Remarks
+
+Some remarks for problems that are not provided in code form.
+
+### Copying Memory Fast
+
+TBD
+
+### Abuse Default
+
+TBD
+
+### Optional Invocation
+
+TBD
+
+### Remove LINQ
+
+TBD
+
+### Add LINQ
+
+TBD
+
+### Use the TPL wisely
+
+TBD
